@@ -50,10 +50,11 @@ if (fs.existsSync(REGISTRY_FILE)) {
 // Direct CDP module
 const { DirectCDP, checkChrome } = require(path.join(LIB_DIR, 'cdp-direct.js'));
 
-// Domain extensions - load from ~/.cursor/glider/domains.json or ~/.glider/domains.json
+// Domain extensions - load from ~/.glider/config/domains.json (primary) or legacy paths
 const DOMAIN_CONFIG_PATHS = [
-  path.join(os.homedir(), '.cursor', 'glider', 'domains.json'),
+  path.join(os.homedir(), '.glider', 'config', 'domains.json'),
   path.join(os.homedir(), '.glider', 'domains.json'),
+  path.join(os.homedir(), '.cursor', 'glider', 'domains.json'), // legacy
 ];
 let DOMAINS = {};
 for (const cfgPath of DOMAIN_CONFIG_PATHS) {
@@ -894,7 +895,7 @@ async function cmdDomains() {
   const domainKeys = Object.keys(DOMAINS);
   if (domainKeys.length === 0) {
     log.warn('No domains configured');
-    log.info('Add domains to ~/.cursor/glider/domains.json or ~/.glider/domains.json');
+    log.info('Add domains to ~/.glider/config/domains.json');
     return;
   }
   console.log(`${GREEN}${domainKeys.length}${NC} domain(s) configured:\n`);
@@ -1751,7 +1752,7 @@ ${YELLOW}REQUIREMENTS:${NC}
     - Glider Chrome extension connected
 
 ${YELLOW}DOMAIN EXTENSIONS:${NC}
-    Add custom domain commands via ~/.cursor/glider/domains.json:
+    Add custom domain commands via ~/.glider/config/domains.json:
     {
       "mysite": { "url": "https://mysite.com/dashboard" },
       "mytool": { "script": "~/.cursor/tools/scripts/mytool.sh" }

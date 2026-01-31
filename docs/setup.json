@@ -60,7 +60,7 @@
     "specific monitor"
   ],
   "config_paths": {
-    "domains": "~/.cursor/glider/domains.json"
+    "domains": "~/.glider/config/domains.json"
   },
   "env_vars": {
     "GLIDER_PORT": {"default": 19988, "description": "relay server port"}
